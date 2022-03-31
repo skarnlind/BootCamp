@@ -16,34 +16,6 @@ print data*/
 
 using namespace std;
 
-class Record{
-    int amount;
-    string method;
-    int year;
-    int month;
-    int day;
-
-    public:
-    void set_amount(int a){
-    amount=a;
-
-
-    }
-    int get_amount(){
-        return amount;
-    }
-
-        int repair_date()
-    {
-        cout << "Year: ";
-        cin >> year;
-        cout << "Month: ";
-        cin >> month;
-        cout << "Day: ";
-        cin >> day;
-    }
-};
-
 class Serviceshop
 {
     int cost[4] = {1098, 399, 499, 100};
@@ -60,9 +32,15 @@ public:
     int month;
     int day;
 
-    Record payment[4];
-
-
+     int repair_date()
+    {
+        cout << "Year: ";
+        cin >> year;
+        cout << "Month: ";
+        cin >> month;
+        cout << "Day: ";
+        cin >> day;
+    }
 
     void servicesOptions()
     {
@@ -112,16 +90,6 @@ public:
         // else{ cin>> service1;}
     }
 
-    void part()
-    {
-        //     string parts[]={"windshield exchanged",
-        //     "latest and greatest software loaded",
-        //     "reset and radar calibration",
-        //     "check tyre pressure and calibrate iTPMS"};
-
-        // cout<< parts[0]<<endl;
-    }
-
     void payMethod()
     {
         int i;
@@ -131,38 +99,19 @@ public:
         cout << "Please enter a number: ";
         cin >> i;
     }
-
-    /*
-            enum Pay_method{swish, card, cash};
-            Pay_method getPay_method();
-            void setPay_method(Pay_method);
-
-            enum Payment{windshield=1098, sw=399, rcalib=499, tyrep=100};
-            Payment getPayment();
-            void setPayment(Payment);
-    */
-    //    int payment(){
-
-    //      int cost[4]={1098,399,499,100};
-    //      int *p_cost=cost;
-
-    //      return *p_cost;
-    //    }
 };
 
 int main()
 {
-    // Serviceshop;
     Serviceshop customer1;
-    // customer1.repair_date();
-    // customer1.servicesOptions();
-    //  customer1.payment();
+    customer1.repair_date();
+    customer1.servicesOptions();
     customer1.choseService();
-    // customer1.part();
-    // customer1.payMethod();
+    customer1.payMethod();
 
-    // cout<< "Repair date: " << customer1.year <<"/"<<customer1.month<<"/"<<customer1.day<< endl;
-    cout << "work performed: " << customer1.payment[0].get_amount();
+    cout<< "Repair date: " << customer1.year <<"/"<<customer1.month<<"/"<<customer1.day<< endl;
+    
+    //cout << "work performed: " << customer1.payment[0].get_amount();
     // << "cost" << customer1.getpayment << "payment method" << customer1.day << endl;
 
     //  Serviceshop customer2;
