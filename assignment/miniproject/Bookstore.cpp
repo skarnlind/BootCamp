@@ -3,6 +3,96 @@
 #include <string>
 using namespace std;
 
+class Book
+{
+    string author_name, publisher_name, b_title;
+    int price, copies;
+
+public:
+    Book(string a, string t, string p, int pr, int c)
+    {
+        author_name = a;
+        publisher_name = p;
+        b_title = t;
+        price = pr;
+        copies = c;
+
+        // constructor
+        // you should assign author, title etc in the constructor, not as separate methods
+    }
+    Book()
+    {
+        author_name = " ";
+        publisher_name = " ";
+        b_title = " ";
+        price = 0;
+        copies = 0;
+    }
+
+    // The method should be verbs like, search_book()
+
+    // void search_book();
+    // void edit_book();
+
+    //     Book set_author_name(string a_name)
+    //     {
+    //         cout << a_name;
+    //         authorname = a_name;
+    //     }
+    //     get_author_name()
+    //     {
+    //     }
+
+    //     set_title(t_name)
+    //     {
+    //     }
+
+    //     get_title()
+    //     {
+    //     }
+
+    //     set_publ_name(p_name)
+    //     {
+    //     }
+    //     get_publ_name()
+    //     {
+    //     }
+
+    //     set_price(price)
+    //     {
+    //     }
+    //     get_price()
+    //     {
+    //     }
+
+    //     set_copies(copies)
+    //     {
+    //     }
+    //     get_copies()
+    //     {
+    //     }
+    // };
+
+    // class Bookstore{
+    // getInventory(){
+
+    // }
+    //     addBook(){
+
+    //     }
+
+    //         void print_info()
+    //     {
+    //         // to loop through register_of_books.[0].author==search_string
+    //     }
+
+    //         // register_of_books[10]={string a_name, t_name, p_name, price, copies};
+};
+
+void print_menu();
+void add_books(vector<Book> &booklist);
+void menu_selection(vector<Book> &booklist);
+void buy_book(vector<Book> &booklist);
 
 void print_menu()
 {
@@ -15,145 +105,89 @@ void print_menu()
     cout << endl;
 }
 
-int menu_selection()
+void menu_selection(vector<Book> &booklist)
 {
     cout << "Enter your Choice: " << endl;
     int value;
     cin >> value;
 
     switch (value)
-        {
-        case 1:
-             add_book();
-            break;
-        case 2:
+    {
+    case 1:
+        add_books(booklist);
+        break;
+    case 2:
+        buy_book(booklist);
+        break;
+    case 3:
+        // search_book();
+        break;
+    case 4:
 
-            break;
-        case 3:
-
-            break;
-        case 4:
-
-            break;
-        default:
-            cout << "Please a select an option number from the menu: ";
-        }
-        cout << "\n";
-
-    // return value;
+        break;
+    default:
+        cout << "Please a select an option number from the menu: ";
+    }
 }
 
-class Book
+void add_books(vector<Book> &booklist)
 {
-        string a_name, p_name, t_name;
-        int price, copies; 
+    string a_name, p_name, t_name;
+    int price, copies;
 
-public:
-        Book(){ 
- 
-        // constructor  
-        //but you should assign author, title etc in the constructor, not as separate methods  
-        }
+    cout << "Enter Author Name: " << endl;
+    cin >> a_name;
 
-//The method should be verbs like, search_book()
-Book print_info();
-Book add_book();
-void view_book();
-void remove_book();
+    cout << "\n Enter Title Name: " << endl;
+    cin >> t_name;
 
-    set_author_name(string a_name)
-    {
-        cout<<a_name;
-        authorname=a_name;
-    }
-    get_author_name()
-    {
-    }
+    cout << "\n Enter Publisher Name: " << endl;
+    cin >> p_name;
 
-    set_title(t_name)
-    {
-    }
+    cout << "\n Enter Price: " << endl;
+    cin >> price;
 
-    get_title()
-    {
-    }
+    cout << "\n Enter Number of Copies: " << endl;
+    cin >> copies;
 
-    set_publ_name(p_name)
-    {
-    }
-    get_publ_name()
-    {
-    }
-
-    set_price(price)
-    {
-    }
-    get_price()
-    {
-    }
-
-    set_copies(copies)
-    {
-    }
-    get_copies()
-    {
-    }
-
-
-    Book add_book()
-    {
-       // string a_name, p_name, t_name;
-        //int price, copies;
-
-        Book new_book;
-        cout << "Enter Author Name: " << endl;
-        cin >> a_name;
-        new_book.set_author_name.push_back(a_name);
-        cout << "\n Enter Title Name: " << endl;
-        cin >> t_name;
-        new_book.set_title.push_back(t_name);
-        cout << "\n Enter Publisher Name: " << endl;
-        cin >> p_name;
-        new_book.set_publ_name.push_back(p_name);
-        cout << "\n Enter Price: " << endl;
-        cin >> price;
-        new_book.set_price.push_back(price);
-        cout << "\n Enter Number of Copies: " << endl;
-        cin >> copies;
-        new_book.set_copies.push_back(copies);
-
-    }
-};
-
-class Bookstore{
-getInventory(){
-
+    Book book(a_name, t_name, p_name, price, copies);
+    booklist.push_back(book);
 }
-    addBook(){
+void buy_book(vector<Book> &booklist)
+{
+    string a_name, t_name;
+    cout << "\n Enter Title Name: " << endl;
+    cin >> t_name;
+    cout << "\n Enter Author Name: " << endl;
+    cin >> a_name;
 
-    }
+    cout << "Vector: ";
 
-        void print_info()
+    for(auto i = booklist.cbegin(); t_name != &booklist(i); ++i)
     {
-        // to loop through register_of_books.[0].author==search_string
+        cout << *t_name << " ";
     }
-
-        // register_of_books[10]={string a_name, t_name, p_name, price, copies};
-
-};
-
+}
 
 int main()
 {
-    Book new_book;
+    // in a main function you request user inputs, than then you use to create the book object
+    // Or to call to the book methods
+    // Book book1("Kalle Anka", "Stina", "Frank", 200, 2);
+    // Book book2("Bullerbyn", "Astrid Lindgren", "Ilon Wiklund", 55, 76);
+    // Book book3("Alfons Åberg", "", "", 150, 53);
+    // Book book4("Madicken", "Astrid L", "Frank", 45, 300);
+    
     vector<Book> book;
 
     print_menu();
-    // in a main function you request user inputs, than then you use to create the book object
-    //Or to call to the book methods
+    menu_selection(book);
 
-    int value = menu_selection();
-    //new_book.add_book();
+    for (int i = 0; i < 100; i++)
+    {
+        print_menu();
+        menu_selection(book);
+    }
 
     return 0;
 }
