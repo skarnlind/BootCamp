@@ -5,10 +5,10 @@ using namespace std;
 
 class Book
 {
+public:
     string author_name, publisher_name, b_title;
     int price, copies;
 
-public:
     Book(string a, string t, string p, int pr, int c)
     {
         author_name = a;
@@ -16,9 +16,6 @@ public:
         b_title = t;
         price = pr;
         copies = c;
-
-        // constructor
-        // you should assign author, title etc in the constructor, not as separate methods
     }
     Book()
     {
@@ -28,71 +25,14 @@ public:
         price = 0;
         copies = 0;
     }
-
-    // The method should be verbs like, search_book()
-
-    // void search_book();
-    // void edit_book();
-
-    //     Book set_author_name(string a_name)
-    //     {
-    //         cout << a_name;
-    //         authorname = a_name;
-    //     }
-    //     get_author_name()
-    //     {
-    //     }
-
-    //     set_title(t_name)
-    //     {
-    //     }
-
-    //     get_title()
-    //     {
-    //     }
-
-    //     set_publ_name(p_name)
-    //     {
-    //     }
-    //     get_publ_name()
-    //     {
-    //     }
-
-    //     set_price(price)
-    //     {
-    //     }
-    //     get_price()
-    //     {
-    //     }
-
-    //     set_copies(copies)
-    //     {
-    //     }
-    //     get_copies()
-    //     {
-    //     }
-    // };
-
-    // class Bookstore{
-    // getInventory(){
-
-    // }
-    //     addBook(){
-
-    //     }
-
-    //         void print_info()
-    //     {
-    //         // to loop through register_of_books.[0].author==search_string
-    //     }
-
-    //         // register_of_books[10]={string a_name, t_name, p_name, price, copies};
 };
 
 void print_menu();
 void add_books(vector<Book> &booklist);
 void menu_selection(vector<Book> &booklist);
 void buy_book(vector<Book> &booklist);
+void search_book(vector<Book> &booklist);
+void edit_book(vector<Book> &booklist);
 
 void print_menu()
 {
@@ -120,14 +60,27 @@ void menu_selection(vector<Book> &booklist)
         buy_book(booklist);
         break;
     case 3:
-        // search_book();
+        search_book(booklist);
         break;
     case 4:
-
+        edit_book(booklist);
+        break;
+    case 5:
+        cout<<"Exits Menu"<< endl;
         break;
     default:
-        cout << "Please a select an option number from the menu: ";
+        cout << "Please select a option number from the menu: " << endl;
     }
+    /*
+        cout << "\n (menu_selection)Available books: " << endl;
+        for (unsigned counter=0; counter<booklist.size(); ++counter)
+        {
+            cout << ' ' << counter << "-";
+            cout << ' ' << booklist[counter].b_title << endl;
+        }*/
+    cout << "\nPress enter to continue..." << endl;
+    cin.ignore(10, '\n');
+    cin.get();
 }
 
 void add_books(vector<Book> &booklist)
@@ -135,18 +88,14 @@ void add_books(vector<Book> &booklist)
     string a_name, p_name, t_name;
     int price, copies;
 
-    cout << "Enter Author Name: " << endl;
+    cout << "\n Enter Author Name: " << endl;
     cin >> a_name;
-
     cout << "\n Enter Title Name: " << endl;
     cin >> t_name;
-
     cout << "\n Enter Publisher Name: " << endl;
     cin >> p_name;
-
     cout << "\n Enter Price: " << endl;
     cin >> price;
-
     cout << "\n Enter Number of Copies: " << endl;
     cin >> copies;
 
@@ -156,38 +105,143 @@ void add_books(vector<Book> &booklist)
 void buy_book(vector<Book> &booklist)
 {
     string a_name, t_name;
-    cout << "\n Enter Title Name: " << endl;
-    cin >> t_name;
+    int cop;
+
     cout << "\n Enter Author Name: " << endl;
     cin >> a_name;
+    cout << "\n Enter Title Name: " << endl;
+    cin >> t_name;
 
-    cout << "Vector: ";
+    bool book_found = false;
 
-    for(auto i = booklist.cbegin(); t_name != &booklist(i); ++i)
+    for (unsigned counter = 0; counter < booklist.size(); ++counter)
     {
-        cout << *t_name << " ";
+        if (a_name == booklist[counter].author_name || t_name == booklist[counter].b_title)
+        {
+            cout << "Book available: " << endl;
+            cout << ' ' << counter << "-" << endl;
+            cout << "Author: " << booklist[counter].author_name << endl;
+            cout << "Book title: " << booklist[counter].b_title << endl;
+            cout << "Publisher: " << booklist[counter].publisher_name << endl;
+            cout << "Price: " << booklist[counter].price << endl;
+            cout << "Copies: " << booklist[counter].copies << endl;
+            cout << "How many copies would you like?: " << endl;
+            cin >> cop;
+            if (cop <= booklist[counter].copies)
+            {
+                cout << "Total cost: " << booklist[counter].price * cop << endl;
+            }
+            else
+            {
+                cout << "Number of Copies not in Stock";
+            }
+            book_found = true;
+        }
+    }
+    if (!book_found)
+    {
+        cout << "Book NOT found: " << endl;
+    }
+    // Access the book to decrease the number of available copies
+    // Create a function to show all books available with complete data, to confirm your previous function is working
+}
+void search_book(vector<Book> &booklist)
+{
+    string a_name, t_name;
+
+    cout << "\n Enter Author Name: " << endl;
+    cin >> a_name;
+    cout << "\n Enter Title Name: " << endl;
+    cin >> t_name;
+
+    bool book_found = false;
+
+    for (unsigned counter = 0; counter < booklist.size(); ++counter)
+    {
+        if (a_name == booklist[counter].author_name || t_name == booklist[counter].b_title)
+        {
+            cout << "Book available: " << endl;
+            cout << ' ' << counter << "-" << endl;
+            cout << "Author: " << booklist[counter].author_name << endl;
+            cout << "Book title: " << booklist[counter].b_title << endl;
+            cout << "Publisher: " << booklist[counter].publisher_name << endl;
+            cout << "Price: " << booklist[counter].price << endl;
+            cout << "Copies: " << booklist[counter].copies << endl;
+            book_found = true;
+        }
+
+        if (!book_found)
+        {
+            cout << "Book NOT found: " << endl;
+        }
     }
 }
 
+void edit_book(vector<Book> &booklist)
+{
+    string a_name, p_name, t_name;
+    int price, copies;
+
+    cout << "\n Enter Author Name: " << endl;
+    cin >> a_name;
+    cout << "\n Enter Title Name: " << endl;
+    cin >> t_name;
+
+    bool book_found = false;
+
+    for (unsigned counter = 0; counter < booklist.size(); ++counter)
+    {
+        if (a_name == booklist[counter].author_name || t_name == booklist[counter].b_title)
+        {
+            cout << "Book available: " << endl;
+            cout << ' ' << counter << "-" << endl;
+            cout << "Author: " << booklist[counter].author_name << endl;
+            cout << "Book title: " << booklist[counter].b_title << endl;
+            cout << "Publisher: " << booklist[counter].publisher_name << endl;
+            cout << "Price: " << booklist[counter].price << endl;
+            cout << "Copies: " << booklist[counter].copies << endl;
+            book_found = true;
+
+            cout << "\n Enter Author Name: " << endl;
+            cin >> booklist[counter].author_name;
+            cout << "\n Enter Title Name: " << endl;
+            cin >> booklist[counter].b_title;
+            cout << "\n Enter Publisher Name: " << endl;
+            cin >> booklist[counter].publisher_name;
+            cout << "\n Enter Price: " << endl;
+            cin >> booklist[counter].price;
+            cout << "\n Enter Number of Copies: " << endl;
+            cin >> booklist[counter].copies;
+        }
+
+        if (!book_found)
+        {
+            cout << "Book NOT found: " << endl;
+        }
+    }
+}
+
+// bool user_exit=true;
 int main()
 {
-    // in a main function you request user inputs, than then you use to create the book object
-    // Or to call to the book methods
-    // Book book1("Kalle Anka", "Stina", "Frank", 200, 2);
-    // Book book2("Bullerbyn", "Astrid Lindgren", "Ilon Wiklund", 55, 76);
-    // Book book3("Alfons Åberg", "", "", 150, 53);
-    // Book book4("Madicken", "Astrid L", "Frank", 45, 300);
-    
-    vector<Book> book;
+    vector<Book> booklist;
+    // books to start with
+    Book book1("Stina", "Kalle Anka", "Frank", 200, 2);
+    Book book2("Astrid Lindgren", "Bullerbyn", "Ilon Wiklund", 55, 76);
+    Book book3("Gunilla Bergström", "Alfons Åberg", "Bonnier", 150, 53);
+    Book book4("Astrid L", "Madicken", "Frank", 45, 300);
 
+    booklist.push_back(book1);
+    booklist.push_back(book2);
+    booklist.push_back(book3);
+    booklist.push_back(book4);
+
+    //bool user_exit = false;
+     do
+      {
     print_menu();
-    menu_selection(book);
-
-    for (int i = 0; i < 100; i++)
-    {
-        print_menu();
-        menu_selection(book);
-    }
+    menu_selection(booklist);
+    } while (true);
 
     return 0;
 }
