@@ -3,6 +3,8 @@
 #include <string>
 using namespace std;
 
+bool user_exit = false;
+
 class Book
 {
 public:
@@ -30,9 +32,9 @@ public:
 void print_menu();
 void add_books(vector<Book> &booklist);
 void menu_selection(vector<Book> &booklist);
-void buy_book(vector<Book> &booklist);
-void search_book(vector<Book> &booklist);
-void edit_book(vector<Book> &booklist);
+void buy_book(vector<Book> &booklist, int index);
+int search_book(vector<Book> &booklist);
+void edit_book(vector<Book> &booklist, int counter);
 
 void print_menu()
 {
@@ -51,26 +53,42 @@ void menu_selection(vector<Book> &booklist)
     int value;
     cin >> value;
 
+    // do
+    // {
     switch (value)
     {
     case 1:
         add_books(booklist);
         break;
     case 2:
-        buy_book(booklist);
+    {
+        int index = search_book(booklist);
+        buy_book(booklist, index);
         break;
+    }
     case 3:
+    {
         search_book(booklist);
         break;
+    }
     case 4:
-        edit_book(booklist);
+    {
+        int index=search_book(booklist);
+        edit_book(booklist,index);
         break;
+    }
     case 5:
-        cout<<"Exits Menu"<< endl;
+        cout << "Exits Menu" << endl;
+        // bool user_exit = true;
         break;
     default:
-        cout << "Please select a option number from the menu: " << endl;
+        cout << "Please select an option number from the menu: " << endl;
     }
+    cout << "\nPress enter to continue..." << endl;
+    cin.ignore(10, '\n');
+    cin.get();
+    // }while(value!=5);
+
     /*
         cout << "\n (menu_selection)Available books: " << endl;
         for (unsigned counter=0; counter<booklist.size(); ++counter)
@@ -78,9 +96,6 @@ void menu_selection(vector<Book> &booklist)
             cout << ' ' << counter << "-";
             cout << ' ' << booklist[counter].b_title << endl;
         }*/
-    cout << "\nPress enter to continue..." << endl;
-    cin.ignore(10, '\n');
-    cin.get();
 }
 
 void add_books(vector<Book> &booklist)
@@ -102,50 +117,23 @@ void add_books(vector<Book> &booklist)
     Book book(a_name, t_name, p_name, price, copies);
     booklist.push_back(book);
 }
-void buy_book(vector<Book> &booklist)
+void buy_book(vector<Book> &booklist, int index)
 {
-    string a_name, t_name;
     int cop;
 
-    cout << "\n Enter Author Name: " << endl;
-    cin >> a_name;
-    cout << "\n Enter Title Name: " << endl;
-    cin >> t_name;
-
-    bool book_found = false;
-
-    for (unsigned counter = 0; counter < booklist.size(); ++counter)
+    cout << "How many copies would you like?: " << endl;
+    cin >> cop;
+    if (cop <= booklist[index].copies)
     {
-        if (a_name == booklist[counter].author_name || t_name == booklist[counter].b_title)
-        {
-            cout << "Book available: " << endl;
-            cout << ' ' << counter << "-" << endl;
-            cout << "Author: " << booklist[counter].author_name << endl;
-            cout << "Book title: " << booklist[counter].b_title << endl;
-            cout << "Publisher: " << booklist[counter].publisher_name << endl;
-            cout << "Price: " << booklist[counter].price << endl;
-            cout << "Copies: " << booklist[counter].copies << endl;
-            cout << "How many copies would you like?: " << endl;
-            cin >> cop;
-            if (cop <= booklist[counter].copies)
-            {
-                cout << "Total cost: " << booklist[counter].price * cop << endl;
-            }
-            else
-            {
-                cout << "Number of Copies not in Stock";
-            }
-            book_found = true;
-        }
+        cout << "Total cost: " << booklist[index].price * cop << endl;
     }
-    if (!book_found)
+    else
     {
-        cout << "Book NOT found: " << endl;
+        cout << "Number of Copies not in Stock";
     }
     // Access the book to decrease the number of available copies
-    // Create a function to show all books available with complete data, to confirm your previous function is working
 }
-void search_book(vector<Book> &booklist)
+int search_book(vector<Book> &booklist)
 {
     string a_name, t_name;
 
@@ -155,6 +143,7 @@ void search_book(vector<Book> &booklist)
     cin >> t_name;
 
     bool book_found = false;
+    int index;
 
     for (unsigned counter = 0; counter < booklist.size(); ++counter)
     {
@@ -168,39 +157,21 @@ void search_book(vector<Book> &booklist)
             cout << "Price: " << booklist[counter].price << endl;
             cout << "Copies: " << booklist[counter].copies << endl;
             book_found = true;
-        }
-
-        if (!book_found)
-        {
-            cout << "Book NOT found: " << endl;
+            index = counter;
         }
     }
+
+    if (!book_found)
+    {
+        cout << "Book NOT found" << endl;
+    }
+    return index;
 }
 
-void edit_book(vector<Book> &booklist)
+void edit_book(vector<Book> &booklist, int counter)
 {
     string a_name, p_name, t_name;
     int price, copies;
-
-    cout << "\n Enter Author Name: " << endl;
-    cin >> a_name;
-    cout << "\n Enter Title Name: " << endl;
-    cin >> t_name;
-
-    bool book_found = false;
-
-    for (unsigned counter = 0; counter < booklist.size(); ++counter)
-    {
-        if (a_name == booklist[counter].author_name || t_name == booklist[counter].b_title)
-        {
-            cout << "Book available: " << endl;
-            cout << ' ' << counter << "-" << endl;
-            cout << "Author: " << booklist[counter].author_name << endl;
-            cout << "Book title: " << booklist[counter].b_title << endl;
-            cout << "Publisher: " << booklist[counter].publisher_name << endl;
-            cout << "Price: " << booklist[counter].price << endl;
-            cout << "Copies: " << booklist[counter].copies << endl;
-            book_found = true;
 
             cout << "\n Enter Author Name: " << endl;
             cin >> booklist[counter].author_name;
@@ -211,17 +182,9 @@ void edit_book(vector<Book> &booklist)
             cout << "\n Enter Price: " << endl;
             cin >> booklist[counter].price;
             cout << "\n Enter Number of Copies: " << endl;
-            cin >> booklist[counter].copies;
-        }
-
-        if (!book_found)
-        {
-            cout << "Book NOT found: " << endl;
-        }
-    }
+            cin >> booklist[counter].copies; 
 }
 
-// bool user_exit=true;
 int main()
 {
     vector<Book> booklist;
@@ -236,11 +199,11 @@ int main()
     booklist.push_back(book3);
     booklist.push_back(book4);
 
-    //bool user_exit = false;
-     do
-      {
-    print_menu();
-    menu_selection(booklist);
+    bool user_exit = false;
+    do
+    {
+        print_menu();
+        menu_selection(booklist);
     } while (true);
 
     return 0;
