@@ -1,0 +1,3 @@
+/home/skarnlin/BootCamp/assignment/miniproject/build/CMakeFiles/rebuild_cache.dir
+/home/skarnlin/BootCamp/assignment/miniproject/build/CMakeFiles/bookstore.dir
+/home/skarnlin/BootCamp/assignment/miniproject/build/CMakeFiles/edit_cache.dir

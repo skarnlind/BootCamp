@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Bookstore.hpp
+vector
+-
+string
+-
+iostream
+-
+
+/home/skarnlin/BootCamp/assignment/miniproject/Bookstore.cpp
+iostream
+-
+vector
+-
+string
+-
+Bookstore.hpp
+/home/skarnlin/BootCamp/assignment/miniproject/Bookstore.hpp
+
+/home/skarnlin/BootCamp/assignment/miniproject/main_bookstore.cpp
+iostream
+-
+vector
+-
+string
+-
+Bookstore.hpp
+/home/skarnlin/BootCamp/assignment/miniproject/Bookstore.hpp
+
