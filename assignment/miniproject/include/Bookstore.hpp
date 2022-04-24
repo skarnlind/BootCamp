@@ -16,7 +16,7 @@ public:
     string author_name, publisher_name, b_title;
     int price, copies;
 
-    Book(string a, string t, string p, int pr, int c)
+    Book(string a, string t, string p, int pr, int c) //Constructor
     {
         author_name = a;
         publisher_name = p;
@@ -24,7 +24,7 @@ public:
         price = pr;
         copies = c;
     }
-    Book()
+    Book() //Default constructor, not used..
     {
         author_name = " ";
         publisher_name = " ";
@@ -34,7 +34,7 @@ public:
     }
 };
 
-
+//declarations of functions
 void add_books(vector<Book> &booklist);
 void menu_selection(vector<Book> &booklist);
 void buy_book(vector<Book> &booklist, int index);

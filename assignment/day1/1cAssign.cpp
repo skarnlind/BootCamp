@@ -26,7 +26,8 @@ int lower_upper_v(int lower, int upper)
     if(lower>upper || lower==upper){
         arr[0]=0xFF;
         arr[1]=0xFF;
-        cout<<arr;
+        cout<<arr[0];
+        cout<<arr[1];
     }
     for (int j = arr_l; j > -1; j--)
     {
@@ -60,19 +61,19 @@ int main()
         return -1;
     }
 
-    cout << endl;
-    for (i = 0; i < 2; i++)
-    {
-        for (j = i + 1; j < 2; j++)
-        {
-            if (array[j] < array[i])
-            {
-                temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-        }
-    }
+    // cout << endl;
+    // for (i = 0; i < 2; i++)
+    // {
+    //     for (j = i + 1; j < 2; j++)
+    //     {
+    //         if (array[j] < array[i])
+    //         {
+    //             temp = array[i];
+    //             array[i] = array[j];
+    //             array[j] = temp;
+    //         }
+    //     }
+    // }
     cout << endl;
 
     lower_upper_v(array[0], array[1]);
